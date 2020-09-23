@@ -4,6 +4,7 @@ const path = require("path");
 const http = require('http');
 const morgan = require("morgan");
 const compression = require('compression');
+const db = require("./db");
 
 module.exports = app;
 
@@ -46,5 +47,7 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.message || "Internal server error.");
 });
 
-server.listen(PORT, () =>
+db.sync().then(()=>{
+    server.listen(PORT, () =>
     console.log(`studiously serving silly sounds on port http://localhost:${PORT}`));
+})
