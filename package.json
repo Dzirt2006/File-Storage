@@ -1,7 +1,7 @@
 {
-  "name": "filestorage",
+  "name": "MyAuth",
   "version": "1.0.0",
-  "description": "filestorage",
+  "description": "MyAuth",
   "main": "index.js",
   "scripts": {
     "start-dev": "npm run build-watch & npm run start-server",
@@ -27,11 +27,14 @@
   },
   "homepage": "https://github.com/Dzirt2006/File-Storage#readme",
   "dependencies": {
+    "chai": "^4.2.0",
     "compression": "^1.7.4",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
+    "pg": "^8.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
