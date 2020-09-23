@@ -1,7 +1,7 @@
 {
-  "name": "filestorage",
+  "name": "MyAuth",
   "version": "1.0.0",
-  "description": "filestorage",
+  "description": "MyAuth",
   "main": "index.js",
   "scripts": {
     "start-dev": "npm run build-watch & npm run start-server",
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/Dzirt2006/File-Storage#readme",
   "dependencies": {
     "compression": "^1.7.4",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
