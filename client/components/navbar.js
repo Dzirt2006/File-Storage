@@ -10,7 +10,7 @@ function NavBar() {
     }
 
     return (
-        <left><button variant="info" onClick={onClickHome}>Home</button></left>
+        <center><button variant="info" onClick={onClickHome}>Home</button></center>
     )
 
 }

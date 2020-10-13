@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/Dzirt2006/File-Storage#readme",
   "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "compression": "^1.7.4",
     "crypto": "^1.0.1",

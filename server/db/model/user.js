@@ -26,6 +26,10 @@ const User = db.define('user', {
     }
 })
 
+User.prototype.correctPassword = function(password) {
+    return User.encryptPassword(password, this.salt()) === this.password()
+  }
+
 User.generateSalt = function () {
     return crypto.randomBytes(16).toString('base64');
 }
