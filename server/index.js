@@ -5,11 +5,14 @@ const http = require('http');
 const morgan = require("morgan");
 const compression = require('compression');
 const db = require("./db");
+const bodyParser = require('body-parser')
 
 module.exports = app;
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
+
+
 
 //use compression middleware for increasing perfomance
 app.use(compression());
@@ -18,8 +21,8 @@ app.use(compression());
 app.use(morgan("dev"));
 
 // body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "../public")));
@@ -39,6 +42,9 @@ app.use((req, res, next) => {
         next();
     }
 });
+
+//add api
+app.use("/auth",require("./api/auth"));
 
 // error handling endware
 app.use((err, req, res, next) => {

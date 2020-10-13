@@ -1,12 +1,23 @@
 const router = require('express').Router();
-const { User } = require('../db/model/user');
+const  User  = require('../db/model/user');
+var bodyParser = require('body-parser')
+
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+
 
 module.exports = router;
 
 
-router.post('/login', (req, res, next) => {
+router.post('/login',async (req, res, next) => {
+   
     try {
-        const user = User.findOne({ where: { email: req.body.email } })
+        const user = await User.findOne({ where: { email: req.body.email } })
         if (!user) {
             res.sendStatus(400).send("User with this email/password doesn't exist");
         } else if (!user.correctPassword(req.body.password)) {
@@ -34,7 +45,7 @@ router.post('/signup', (req, res, next) => {
 
 })
 
-router.put('/change_password', (req, res, next) => {
+router.put('/change_password',urlencodedParser, (req, res, next) => {
     try {
         const user = User.update({ password: req.body.password }, { where: { email: req.body.email } });
         console.log("User updated")
@@ -45,3 +56,10 @@ router.put('/change_password', (req, res, next) => {
 
 })
 
+router.get("/all",(req,res,next)=>{
+    try{
+        User.findAll().then(data=>res.json(data));
+    }catch(err){
+        next(err); 
+    }
+})
