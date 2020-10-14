@@ -5,7 +5,6 @@ async function seed() {
     await db.sync({ force: true })
     console.log('db synced!')
     await User.create({ email: 'cody@email.com',password:"w2w2" })
-    // .then(data => data.createPool({ name: "hz" })).then(d => { console.log(d) });
     
 }
 

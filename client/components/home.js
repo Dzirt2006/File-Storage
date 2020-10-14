@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 
 function Home() {
+    const history = useHistory();
 
     useEffect(() => {
     }, [])
@@ -10,13 +12,14 @@ function Home() {
 
     async function onClickHandleLogin(event) {
         event.preventDefault();
-        const user={ email: event.target.email.value, password: event.target.password.value }
+        const user = { email: event.target.email.value, password: event.target.password.value }
         console.log(user)
-        await axios.post('/auth/login',user )
-        .then(data=>console.log(data));
+        await axios.post('/auth/login', user)
+            .then(data => console.log(data));
     }
     function onClickHandleSignUp(event) {
         event.preventDefault();
+        history.push('/signup');
     }
 
     return (
