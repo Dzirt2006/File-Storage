@@ -11,13 +11,14 @@ const Routes = () => {
             <div>
                 <br />
                 <center>
-                    <h2>Cloudy</h2>
+                    <h2>MyAuth</h2>
+                    <p>secured login for all</p>
                 </center>
             </div>
             <br />
             <br />
             <Switch>
-                <Route exact path="/home" component={Home} />
+                <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={SignUp} />
             </Switch>
         </Router>

@@ -1,20 +1,27 @@
 const router = require('express').Router();
 const  User  = require('../db/model/user');
-var bodyParser = require('body-parser')
-
+const bodyParser = require('body-parser')
+const cors = require('cors');
 
 // create application/json parser
-var jsonParser = bodyParser.json()
+const jsonParser = bodyParser.json()
 
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 
 module.exports = router;
 
 
-router.post('/login',async (req, res, next) => {
+//side validation
+const corsOption={
+    origin: function(origin,callback){
+        
+    }
+}
+
+router.post('/login',cors(corsOption),async (req, res, next) => {
    
     try {
         const user = await User.findOne({ where: { email: req.body.email } })

@@ -24,9 +24,7 @@ function Home() {
 
     return (
         <div>
-
             <center>
-                <h3>Login</h3><br /><br />
                 <form onSubmit={onClickHandleLogin}>
                     <label htmlFor="email">email</label><br />
                     <input type="text" name="email" /><br /><br />
