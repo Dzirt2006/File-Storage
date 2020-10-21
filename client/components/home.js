@@ -13,20 +13,20 @@ function Home() {
     async function onClickHandleLogin(event) {
         event.preventDefault();
         const user = { email: event.target.email.value, password: event.target.password.value }
-        console.log(user)
-        await axios.post('/auth/login', user)
-            .then(data => console.log(data));
+        await axios.put('/api/auth/login', user)
+            .then(user => history.push(`/services/${user.data.id}`)).catch(() => {
+                alert(`Wrong input data`) // this will log an empty object with an error property
+            });
+
     }
     function onClickHandleSignUp(event) {
         event.preventDefault();
-        history.push('/signup');
+        history.push('/api/signup');
     }
 
     return (
         <div>
-
             <center>
-                <h3>Login</h3><br /><br />
                 <form onSubmit={onClickHandleLogin}>
                     <label htmlFor="email">email</label><br />
                     <input type="text" name="email" /><br /><br />
@@ -36,7 +36,9 @@ function Home() {
                 </form ><br />
                 <button type="button" onClick={onClickHandleSignUp}>sign up</button>
             </center>
+            <button type="button" onClick={async function () { await axios.get('/auth/me').then(data => { console.log(data) }) }}>POOOP</button>
         </div>
+
     )
 
 }
