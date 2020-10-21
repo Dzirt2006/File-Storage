@@ -6,12 +6,15 @@ const morgan = require("morgan");
 const compression = require('compression');
 const db = require("./db");
 const bodyParser = require('body-parser');
-
+const {User} = require('./db/model');
+const session = require('express-session')
+const passport = require('passport')
 
 module.exports = app;
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
+
 
 
 //use compression middleware for increasing perfomance
@@ -23,6 +26,40 @@ app.use(morgan("dev"));
 // body parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+// session middleware with passport
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'shhh it is secret',
+      resave: false,
+      cookie: {expires: new Date(253402300000000)},
+      saveUninitialized: false
+    })
+  )
+  
+  // consumes 'req.session' so that passport can know what's on the session
+  app.use(passport.initialize())
+  // this will invoke our registered 'deserializeUser' method
+  // and attempt to put our user on 'req.user'
+  app.use(passport.session())
+  
+  
+  // passport registration
+  passport.serializeUser((user, done) => {done(null, user.id)})
+  
+  // If we've serialized the user on our session with an id, we look it up here
+  // and attach it as 'req.user'.
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findByPk(id)
+      done(null, user)
+    } catch (err) {
+      done(err)
+    }
+  })
+
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "../public")));
@@ -43,8 +80,8 @@ app.use((req, res, next) => {
     }
 });
 
-//add api
-app.use("/auth", require("./api/auth"));
+// api routes
+app.use("/api", require("./api"));
 
 // error handling endware
 app.use((err, req, res, next) => {

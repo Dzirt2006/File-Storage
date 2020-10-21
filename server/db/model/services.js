@@ -1,7 +1,6 @@
-const { Sequelize } = require('sequelize');
-const Sequelzie = require('sequelize');
+const  Sequelize  = require('sequelize');
 const db = require('../index');
-import { v4 as uuidv4 } from 'uuid';
+const uuid = require('uuid');
 
 
 const Service = db.define('service', {
@@ -19,5 +18,7 @@ const Service = db.define('service', {
 })
 
 Service.beforeCreate((service) => {
-    service.uuid = uuidv4();
+    service.uuid = uuid.v4();
 })
+
+module.exports = Service;

@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './home';
 import Navbar from './navbar';
 import SignUp from './signUp';
+import ServicePage from './serviseRegistration';
 
 const Routes = () => {
     return (
@@ -20,6 +21,7 @@ const Routes = () => {
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={SignUp} />
+                <Route exact path="/services/:id" component={ServicePage} />
             </Switch>
         </Router>
     )
