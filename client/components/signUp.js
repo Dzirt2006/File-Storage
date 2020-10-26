@@ -10,7 +10,7 @@ function SignUp() {
             email: event.target.email.value,
             password: event.target.password.value
         }
-        console.log(user.password,event.target.password2)
+        //checking password before sending it to api
         if(user.password===event.target.password2.value){
             await axios.post('/auth/signup',user);
         }else{

@@ -6,7 +6,7 @@ function NavBar() {
     const history = useHistory();
 
     function onClickHome() {
-        history.push('/home')
+        history.push('/')
     }
 
     return (

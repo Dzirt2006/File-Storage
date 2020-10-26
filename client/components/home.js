@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router';
 import axios from 'axios';
 
 
 function Home() {
     const history = useHistory();
+    const uuid = useParams().id;
 
     useEffect(() => {
     }, [])
@@ -13,10 +15,17 @@ function Home() {
     async function onClickHandleLogin(event) {
         event.preventDefault();
         const user = { email: event.target.email.value, password: event.target.password.value }
-        await axios.put('/api/auth/login', user)
-            .then(user => history.push(`/services/${user.data.id}`)).catch(() => {
-                alert(`Wrong input data`) // this will log an empty object with an error property
-            });
+        if (uuid) {
+            await axios.put('/api/auth/side_login', user)
+                .catch(() => {
+                    alert(`Wrong input data`) // this will log an empty object with an error property
+                });
+        } else {
+            await axios.put('/api/auth/login', user)
+                .then(user => history.push(`/services/${user.data.id}`)).catch(() => {
+                    alert(`Wrong input data`) // this will log an empty object with an error property
+                });
+        }
 
     }
     function onClickHandleSignUp(event) {
@@ -36,7 +45,6 @@ function Home() {
                 </form ><br />
                 <button type="button" onClick={onClickHandleSignUp}>sign up</button>
             </center>
-            <button type="button" onClick={async function () { await axios.get('/auth/me').then(data => { console.log(data) }) }}>POOOP</button>
         </div>
 
     )

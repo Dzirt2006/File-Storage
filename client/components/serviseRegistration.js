@@ -7,6 +7,7 @@ import axios from 'axios';
 function ServicePage() {
     const [service, SetService] = useState([]);
     const [serviceInpt, SetServiceInpt] = useState({ name: '', url: '' });
+    const [trigger,SetTrigger]= useState(false); //rewrite this part with redux for better rerendering
 
     useEffect(() => {
         async function getAll() {
@@ -14,7 +15,7 @@ function ServicePage() {
                 .then(data => { SetService(data.data) });
         }
         getAll();
-    }, [])
+    }, [trigger])
 
     function input(event) {
         event.preventDefault();
@@ -23,20 +24,24 @@ function ServicePage() {
 
     async function addService(event) {
         event.preventDefault();
+        console.log(trigger)
+ 
+        SetTrigger(trigger=>!trigger)
+        
         await axios.post('api/services/', serviceInpt);
-        SetServiceInpt({ name: '', url: '' });
+        SetServiceInpt({ name: '', url: '' })
     }
 
-    console.log("services", service)
+    // console.log("services", service)
     return (
         <div>
             <center>
                 <div>
                     <form onSubmit={addService}>
                         <label htmlFor="serviceName">Service Name</label><br />
-                        <input type="text" name="name" onChange={input} /><br /><br />
+                        <input type="text" name="name" onChange={input} value={serviceInpt.name}/><br /><br />
                         <label htmlFor="url">url</label><br />
-                        <input type="text" name="url" onChange={input} /><br /><br />
+                        <input type="text" name="url" onChange={input} value={serviceInpt.url}/><br /><br />
                         <input type="submit" value="submit" />
                     </form>
                 </div>
